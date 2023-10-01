@@ -1,2 +1,9 @@
-# taxonomy
-An economic taxonomy is a system of classification of economic activity, including products, companies and industries. Some economists believe that the study of economic policy demands the use of a taxonomic/classificatory approach.
+# Taxonomy
+
+Anything related to taxonomy or classification of economical entities.  
+
+Includes an abstraction for Product Classification. Each implementation of the classification
+is a separated library.
+
+Consider to implement `\MiBo\Taxonomy\Contracts\SubjectToProductTaxonomy` Interface to every
+object that can be classified by a Product Taxonomy.

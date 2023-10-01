@@ -9,6 +9,8 @@ phpunit.xml
 .phpunit.cache
 .phpunit.cache/
 
+src/CPA
+
 .DS_Store
 
 tests/Benchmarks/reports/*

@@ -3,10 +3,6 @@
   <testsuites>
     <testsuite name="Full">
       <directory>./tests/</directory>
-      <exclude>./tests/Coverage</exclude>
-    </testsuite>
-    <testsuite name="Coverage">
-      <directory>./tests/Coverage</directory>
     </testsuite>
   </testsuites>
   <coverage/>
@@ -18,7 +14,6 @@
   <php>
     <ini name="display_errors" value="On" />
     <ini name="display_startup_errors" value="On" />
-    <env name="APP_ENV" value="testing" />
-    <ini name="memory_limit" value="-1" />
+    <ini name="memory_limit" value="256M" />
   </php>
 </phpunit>
