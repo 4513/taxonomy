@@ -50,15 +50,5 @@
             "dealerdirect/phpcodesniffer-composer-installer": false,
             "phpstan/extension-installer": true
         }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "MiBo\\Properties\\Providers\\ConfigProvider",
-                "MiBo\\Properties\\Providers\\FacadeProvider",
-                "MiBo\\Properties\\Providers\\ServiceProvider",
-                "MiBo\\Properties\\Providers\\TranslationProvider"
-            ]
-        }
     }
 }
