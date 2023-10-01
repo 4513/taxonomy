@@ -1,4 +1,6 @@
-# Taxonomy
+# Taxonomy  
+[![codecov](https://codecov.io/gh/4513/taxonomy/graph/badge.svg?token=bVd02jMUWj)](https://codecov.io/gh/4513/taxonomy)  
+
 
 Anything related to taxonomy or classification of economical entities.  
 
