@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ruleset name="MiBo Standard" namespace="">
+    <description>MiBo coding standard</description>
+
+    <arg name="colors"/>
+
+    <arg value="sp" />
+
+    <file>./src</file>
+    <file>./tests</file>
+
+    <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
+    </rule>
+</ruleset>
