@@ -25,6 +25,8 @@ namespace MiBo\Taxonomy\Contracts;
 interface TaxpayerIdentificationNumberInterface
 {
     /**
+     * Returns the value of the TIN as a string.
+     *
      * @return non-empty-string The TIN.
      */
     public function getId(): string;
