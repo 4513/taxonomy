@@ -11,13 +11,13 @@ use ValueError;
  *
  * @package MiBo\Taxonomy\Traits
  *
+ * @internal Meant to use only within the Enums of Taxonomy. No BC promise at all.
+ *
  * @author Michal Boris <michal.boris27@gmail.com>
  *
  * @since 0.1
  *
  * @no-named-arguments Parameter names are not covered by the backward compatibility promise.
- *
- * @internal Meant to use only within the Enums of Taxonomy. No BC promise at all.
  *
  * @mixin \BackedEnum
  */

@@ -2,47 +2,702 @@
 <ruleset name="MiBo Standard" namespace="">
     <description>MiBo coding standard</description>
 
+    <!-- Output settings -->
     <arg name="colors"/>
-
     <arg value="sp" />
 
-    <file>./src</file>
-    <file>./tests</file>
-    <exclude-pattern>*/CPA/*</exclude-pattern>
+    <!-- INI settings -->
+    <ini name="memory_limit" value="256M"/>
 
+    <!-- Always ignored files and paths -->
+    <exclude-pattern>./bootstrap/cache/*</exclude-pattern>
+    <exclude-pattern>./public/build/*</exclude-pattern>
+    <exclude-pattern>./public/media/*</exclude-pattern>
+    <exclude-pattern>*/cache/*</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+    <exclude-pattern>*.css</exclude-pattern>
+
+    <!-- RULES -->
+
+    <!-- Slevomat Sniff Settings -->
     <rule ref="vendor/slevomat/coding-standard/SlevomatCodingStandard/ruleset.xml">
-        <exclude name="SlevomatCodingStandard.Commenting.DocCommentSpacing"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces.NonFullyQualified"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison.RequiredYodaComparison"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions.NonFullyQualifiedException"/>
-        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall.MissingTrailingComma"/>
-        <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineBeforeClosingBrace"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowEmpty.DisallowedEmpty"/>
-        <exclude name="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces.NoEmptyLineAfterOpeningBrace"/>
-        <exclude name="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator.MultiLineTernaryOperatorNotUsed"/>
-        <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.IncorrectLinesCountBeforeFirstUse"/>
-        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions.NonFullyQualified"/>
-        <exclude name="SlevomatCodingStandard.Files.FunctionLength.FunctionLength"/>
-        <exclude name="SlevomatCodingStandard.Functions.FunctionLength.FunctionLength"/>
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming.SuperfluousSuffix"/>
-        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix"/>
+        <!-- Internal CSS and JS -->
+        <exclude name="Internal.Tokenizer.Exception" />
+
+        <!-- Ignore restriction of defining class properties via constructor -->
+        <exclude name="SlevomatCodingStandard.Classes.DisallowConstructorPropertyPromotion" />
+
+        <!-- Allow creating non-abstract non-final classes -->
+        <exclude name="SlevomatCodingStandard.Classes.RequireAbstractOrFinal" />
+
+        <!-- Allow 'Abstract' suffix on abstract classes -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming" />
+
+        <!-- Allow 'Interface' suffix on interfaces -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming" />
+
+        <!-- Allow 'Exception' suffix for exceptions -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming" />
+
+        <!-- Allow 'Error' suffix on errors -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousErrorNaming" />
+
+        <!-- Allow 'Trait' suffix on traits -->
+        <exclude name="SlevomatCodingStandard.Classes.SuperfluousTraitNaming" />
+
+        <!-- Allow to not promote properties -->
+        <exclude name="SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion" />
+
+        <!-- Allow one-liner comments, conflicts SlevomatCodingStandard.Commenting.RequireOneLineDocComment -->
+        <exclude name="SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment" />
+
+        <!-- Allow multiline one-liner comments because of methods -->
+        <exclude name="SlevomatCodingStandard.Commenting.RequireOneLineDocComment.MultiLineDocComment" />
+
+        <!-- Allow creating annotation anytime -->
+        <exclude name="SlevomatCodingStandard.Commenting.UselessFunctionDocComment" />
+
+        <!-- Ignore @inheritDoc only. It might be a sign that the dev is really aware of the annotation of parent -->
+        <exclude name="SlevomatCodingStandard.Commenting.UselessInheritDocComment" />
+
+        <!-- Allow Null safe object operator -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.DisallowNullSafeObjectOperator" />
+
+        <!-- Enforce parenthesis on new -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.NewWithoutParentheses" />
+
+        <!-- Conflicts with SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator" />
+
+        <!-- We Yoda speak want to -->
+        <exclude name="SlevomatCodingStandard.ControlStructures.RequireYodaComparison" />
+
+        <!-- Allow catching an exception and ignore it later. Conflicts with SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch -->
+        <exclude name="SlevomatCodingStandard.Exceptions.DisallowNonCapturingCatch" />
+
+        <!-- Allow catching only \Exception, not the \Throwable as Errors are sometimes rather meant to be kept -->
+        <exclude name="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly" />
+
+        <!-- Allow Arrow fn. Conflicts with SlevomatCodingStandard.Functions.ArrowFunctionDeclaration -->
+        <exclude name="SlevomatCodingStandard.Functions.DisallowArrowFunction" />
+
+        <!-- Forbids trailing comma in fn. Conflicts with SlevomatCodingStandard.Functions.DisallowTrailingCommaInCall -->
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall" />
+
+        <!-- Forbids trailing comma in fn () use (). Conflicts with SlevomatCodingStandard.Functions.DisallowTrailingCommaInClosureUse -->
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInClosureUse" />
+
+        <!-- Forbids trailing comma in fn declaration. Conflicts with SlevomatCodingStandard.Functions.DisallowTrailingCommaInDeclaration -->
+        <exclude name="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration" />
+
+        <!-- Allow importing NS of exceptions -->
+        <exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions" />
+
+        <exclude name="SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces" />
+
+        <!-- Allow literal numeric separator -->
+        <exclude name="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator" />
+
+        <!-- Allow increment and decrement operator -->
+        <exclude name="SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators" />
+
+        <!-- Allow mixed type hint -->
+        <exclude name="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint" />
+
+        <!-- DEPRECATED -->
+        <exclude name="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat" />
     </rule>
+
+    <!-- Attributes -->
+    <!-- Order Attributes Alphabetically -->
+    <rule ref="SlevomatCodingStandard.Attributes.AttributesOrder">
+        <properties>
+            <property name="orderAlphabetically" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+
+    <!-- Classes -->
+    <!-- Auto fix visibility of constants to public; disabled by default -->
+    <rule ref="SlevomatCodingStandard.Classes.ClassConstantVisibility">
+        <properties>
+            <property name="fixable" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Change max lines of a class; default 250 -->
+    <rule ref="SlevomatCodingStandard.Classes.ClassLength">
+        <properties>
+            <property name="maxLinesLength" type="int" value="500" />
+        </properties>
+        <exclude-pattern>./tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Change order of class structures - methods, constants, properties, uses, cases -->
+    <rule ref="SlevomatCodingStandard.Classes.ClassStructure">
+        <properties>
+            <property name="methodGroups" type="array">
+                <element key="aliased-constructor" value="getInstance" />
+            </property>
+            <property name="groups" type="array">
+                <element value="uses" />
+
+                <element value="enum cases" />
+
+                <element value="public constants" />
+                <element value="protected constants" />
+                <element value="constants" />
+
+                <element value="public properties, public static properties" />
+                <element value="protected properties, protected static properties" />
+                <element value="private properties, private static properties" />
+
+                <element value="constructor, static constructors" />
+                <element value="aliased-constructor" />
+
+                <element value="public abstract methods, public static abstract methods" />
+                <element value="protected abstract methods, protected static abstract methods" />
+                <element value="public final methods, public static final methods" />
+                <element value="protected final methods, protected static final methods" />
+                <element value="all public methods" />
+                <element value="all protected methods" />
+                <element value="all private methods" />
+
+                <element value="magic methods, destructor" />
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Set a number of empty lines on start and the end of a class to zero (default 1) -->
+    <rule ref="SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces">
+        <properties>
+            <property name="linesCountAfterOpeningBrace" type="int" value="0" />
+            <property name="linesCountBeforeClosingBrace" type="int" value="0" />
+        </properties>
+    </rule>
+
+    <!-- Allow public properties only if readonly; By default, all public properties are forbidden,
+     except of promoted ones -->
+    <rule ref="SlevomatCodingStandard.Classes.ForbiddenPublicProperty">
+        <properties>
+            <property name="checkPromoted" type="boolean" value="true" />
+            <property name="allowReadonly" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Changes spacing when using Traits -->
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+        <properties>
+            <property name="linesCountBeforeFirstUse" type="int" value="1" />
+            <property name="linesCountBeforeFirstUseWhenFirstInClass" type="int" value="0" />
+            <property name="linesCountBetweenUses" type="int" value="0" />
+            <property name="linesCountAfterLastUse" type="int" value="1" />
+            <property name="linesCountAfterLastUseWhenLastInClass" type="int" value="0" />
+        </properties>
+    </rule>
+
+    <!-- Commenting -->
+    <!-- Set an order of groups and annotation within groups -->
+    <rule ref="SlevomatCodingStandard.Commenting.DocCommentSpacing">
+        <properties>
+            <property name="annotationsGroups" type="array">
+                <element value="
+                        @inheritDoc,
+                        @todo,
+                " />
+                <element value="
+                        @package,
+                " />
+                <element value="
+                        @link,
+                " />
+                <element value="
+                        @api,
+                        @version,
+                " />
+                <element value="
+                        @deprecated,
+                        @internal,
+                " />
+                <element value="
+                        @QA\,
+                " />
+                <element value="
+                        @see,
+                        @uses,
+                        @example,
+                " />
+                <element value="
+                        @template,
+                " />
+                <element value="
+                        @property,
+                        @property-read,
+                        @property-write,
+                " />
+                <element value="
+                        @method,
+                " />
+                <element value="
+                        @author,
+                " />
+                <element value="
+                        @test,
+                        @small,
+                        @medium,
+                        @large,
+                " />
+                <element value="
+                        @covers,
+                        @coversNothing,
+                " />
+                <element value="
+                        @doesNotPerformAssertions,
+                " />
+                <element value="
+                        @since,
+                " />
+                <element value="
+                        @copyright,
+                        @license,
+                " />
+                <element value="
+                        @var,
+                        @global,
+                        @param,
+                " />
+                <element value="
+                        @return,
+                " />
+                <element value="
+                        @throws,
+                " />
+                <element value="
+                        @no-named-arguments,
+                " />
+                <element value="
+                        @coversDefaultClass,
+                " />
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Allow return annotation on return or non-assignment -->
+    <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration">
+        <properties>
+            <property name="allowDocCommentAboveReturn" type="boolean" value="true" />
+            <property name="allowAboveNonAssignment" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Complexity -->
+    <!-- Set thresholds for warning and error. Default 6, 6 -->
+    <rule ref="SlevomatCodingStandard.Complexity.Cognitive">
+        <properties>
+            <property name="warningThreshold" type="int" value="6" />
+            <property name="errorThreshold" type="int" value="10" />
+        </properties>
+    </rule>
+
+    <!-- Control Structures -->
+    <!-- Ignore early exit if standalone condition or trailing -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit">
+        <properties>
+            <property name="ignoreStandaloneIfInScope" type="boolean" value="true" />
+            <property name="ignoreOneLineTrailingIf" type="boolean" value="true" />
+            <property name="ignoreTrailingIfWithOneInstruction" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Jump Statement Spacing changes -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
+        <properties>
+            <!-- Ignore 'break' which Squiz handles -->
+            <property name="jumpStatements" type="array">
+                <element value="goto" />
+                <element value="continue" />
+                <element value="return" />
+                <element value="throw" />
+                <element value="yield" />
+                <element value="yield_from" />
+            </property>
+        </properties>
+    </rule>
+
+    <!-- Require ternary operator on multi lines if too long (default always) -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
+        <properties>
+            <property name="lineLengthLimit" type="int" value="120" />
+        </properties>
+    </rule>
+
+    <!-- With a coop of PHPStan, all condition expr are booleans. -->
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn">
+        <properties>
+            <property name="assumeAllConditionExpressionsAreAlreadyBoolean" type="boolean" value="true" />
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator">
+        <properties>
+            <property name="assumeAllConditionExpressionsAreAlreadyBoolean" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Files -->
+    <!-- Change file length. Default 250 -->
+    <rule ref="SlevomatCodingStandard.Files.FileLength">
+        <properties>
+            <property name="maxLinesLength" type="int" value="500" />
+        </properties>
+        <exclude-pattern>./lang/*</exclude-pattern>
+        <exclude-pattern>./config/*</exclude-pattern>
+        <exclude-pattern>./tests/*</exclude-pattern>
+    </rule>
+
+    <!-- Allow long comment lines. E.g. full classified class name -->
+    <rule ref="SlevomatCodingStandard.Files.LineLength">
+        <properties>
+            <property name="ignoreComments" type="boolean" value="true" />
+        </properties>
+        <exclude-pattern>./lang/*</exclude-pattern>
+        <exclude-pattern>./config/*</exclude-pattern>
+    </rule>
+
+    <!-- Functions -->
+    <!-- Change max size of fn. Default 20 -->
+    <!-- Ignoring for Tests -->
+    <rule ref="SlevomatCodingStandard.Functions.FunctionLength">
+        <properties>
+            <property name="maxLinesLength" type="int" value="50" />
+        </properties>
+        <exclude-pattern>./tests/*.php</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Functions.DisallowNamedArguments">
+        <exclude-pattern>./bootstrap/*</exclude-pattern>
+        <exclude-pattern>./config/*</exclude-pattern>
+
+        <!-- Because of swagger -->
+        <exclude-pattern>*/UI/API/*</exclude-pattern>
+        <exclude-pattern>*/Swagger/*</exclude-pattern>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter">
+        <exclude-pattern>database/*</exclude-pattern>
+    </rule>
+
+    <!-- Namespaces -->
+    <!-- Import special PHP function -->
+    <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions">
+        <properties>
+            <property name="includeSpecialFunctions" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly">
+        <properties>
+            <property name="allowFullyQualifiedGlobalFunctions" type="boolean" value="true" />
+            <property name="allowFullyQualifiedGlobalConstants" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Numbers -->
+    <!-- Change limit for required numeric literal separator. Default 4, 4 -->
+    <rule ref="SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator">
+        <properties>
+            <property name="minDigitsBeforeDecimalPoint" type="int" value="7" />
+            <property name="minDigitsAfterDecimalPoint" type="int" value="7" />
+        </properties>
+    </rule>
+
+    <!-- Type Hints -->
+    <!-- Declare strict types -->
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <properties>
+            <property name="declareOnFirstLine" type="boolean" value="false" />
+            <property name="linesCountBeforeDeclare" type="int" value="1" />
+            <property name="linesCountAfterDeclare" type="int" value="1" />
             <property name="spacesCountAroundEqualsSign" type="int" value="0" />
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.Files.FileLength.FileTooLong">
-        <exclude-pattern>*/CPAv2_1</exclude-pattern>
+
+    <!-- Ignore property type hints because of abstract model and ignoring for tests -->
+    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
+        <exclude-pattern>*/Models/*\.php</exclude-pattern>
+        <exclude-pattern>./tests/*.php</exclude-pattern>
+        <exclude-pattern>*/Swagger/*</exclude-pattern>
     </rule>
-    <rule ref="SlevomatCodingStandard.Classes.ClassLength.ClassTooLong">
-        <exclude-pattern>*/CPAv2_1</exclude-pattern>
+
+    <!-- Ignore to check type within an annotation that matches true types -->
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint.UselessAnnotation">
+        <severity>0</severity>
     </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint.UselessAnnotation">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Whitespaces -->
+    <!-- Allow alignment -->
+    <rule ref="SlevomatCodingStandard.Whitespaces.DuplicateSpaces">
+        <properties>
+            <property name="ignoreSpacesBeforeAssignment" type="boolean" value="true" />
+            <property name="ignoreSpacesInComment" type="boolean" value="true" />
+            <property name="ignoreSpacesInMatch" type="boolean" value="true" />
+        </properties>
+    </rule>
+
+    <!-- Squiz Sniff Settings -->
+    <rule ref="Squiz">
+        <!-- Allow } elseif { keyword joint together -->
+        <exclude name="Squiz.ControlStructures.ElseIfDeclaration" />
+
+        <!-- Ignore followed -->
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration" />
+        <exclude name="Squiz.Commenting.FileComment" />
+        <exclude name="Squiz.Files.FileExtension" />
+        <exclude name="Squiz.Commenting.FunctionComment" />
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment" />
+        <exclude name="Squiz.Commenting.ClassComment" />
+        <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace" />
+        <exclude name="Squiz.Commenting.VariableComment" />
+        <exclude name="Squiz.PHP.DisallowBooleanStatement" />
+        <exclude name="Squiz.Commenting.FunctionCommentThrowTag" />
+        <exclude name="Squiz.Commenting.InlineComment.DocBlock" />
+        <exclude name="Squiz.Commenting.LongConditionClosingComment" />
+        <exclude name="Squiz.Commenting.BlockComment.WrongStart" />
+        <exclude name="Squiz.PHP.DisallowInlineIf" />
+        <exclude name="Squiz.ControlStructures.InlineIfDeclaration" />
+        <exclude name="Squiz.PHP.DisallowComparisonAssignment" />
+
+        <exclude name="Squiz.Operators.ComparisonOperatorUsage.NotAllowed" />
+        <exclude name="Squiz.Operators.ComparisonOperatorUsage.ImplicitTrue" />
+        <exclude name="Squiz.NamingConventions.ValidFunctionName.MethodDoubleUnderscore" />
+        <exclude name="Squiz.Objects.ObjectInstantiation.NotAssigned" />
+        <exclude name="Squiz.Formatting.OperatorBracket.MissingBrackets" />
+        <exclude name="Squiz.Commenting.PostStatementComment.Found" />
+        <exclude name="Squiz.WhiteSpace.FunctionSpacing.AfterLast" />
+
+        <!-- LineLength is being checked by Slevomat -->
+        <exclude name="Generic.Files.LineLength" />
+        <exclude name="Generic.Commenting.DocComment" />
+        <exclude name="PEAR.Formatting.MultiLineAssignment" />
+
+        <!-- Deprecated -->
+        <exclude name="Squiz.Classes.DuplicateProperty" />
+        <exclude name="Squiz.CSS" />
+        <exclude name="Squiz.Debug.JavaScriptLint" />
+        <exclude name="Squiz.Debug.JSLint" />
+        <exclude name="Squiz.Objects.DisallowObjectStringIndex" />
+        <exclude name="Squiz.Objects.ObjectMemberComma" />
+        <exclude name="Squiz.WhiteSpace.LanguageConstructSpacing" />
+        <exclude name="Squiz.WhiteSpace.PropertyLabelSpacing" />
+        <exclude name="Generic.Debug.ClosureLinter" />
+        <exclude name="Zend.Debug.CodeAnalyzer" />
+    </rule>
+
+    <rule ref="Squiz.Arrays.ArrayDeclaration" />
+
+    <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="spacingBeforeFirst" value="0" />
+            <property name="spacingAfterLast" value="0" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+        <properties>
+            <property name="spacingBeforeFirst" value="0" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
+        <properties>
+            <property name="equalsSpacing" value="1" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+
+    <!-- PEAR Sniff Settings -->
+    <rule ref="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket">
+        <severity>0</severity>
+    </rule>
+
+    <rule ref="PEAR.Functions.FunctionCallSignature.CloseBracketLine">
+        <severity>0</severity>
+    </rule>
+
+    <!-- Generic Sniff Settings -->
+    <!-- Updating updated Squiz rules -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array">
+                <element key="sizeof" value="count" />
+                <element key="delete" value="unset" />
+                <element key="app" />
+                <element key="trigger_deprecation" />
+                <element key="dump" />
+                <element key="dd" />
+                <element key="ddd" />
+                <element key="normalizer_is_normalized" />
+                <element key="normalizer_normalize" />
+                <element key="sapi_windows_vt100_support" />
+                <element key="stream_isatty" />
+                <element key="utf8_encode" />
+                <element key="utf8_decode" />
+                <element key="spl_object_id" />
+                <element key="mb_ord" />
+                <element key="mb_chr" />
+                <element key="mb_scrub" />
+                <element key="ctype_alnum" />
+                <element key="ctype_alpha" />
+                <element key="ctype_cntrl" />
+                <element key="ctype_digit" />
+                <element key="ctype_graph" />
+                <element key="ctype_lower" />
+                <element key="ctype_print" />
+                <element key="ctype_punct" />
+                <element key="ctype_space" />
+                <element key="ctype_upper" />
+                <element key="ctype_xdigit" />
+                <element key="idn_to_ascii" />
+                <element key="idn_to_utf8" />
+                <element key="grapheme_extract" />
+                <element key="grapheme_stripos" />
+                <element key="grapheme_stristr" />
+                <element key="grapheme_strlen" />
+                <element key="grapheme_strpos" />
+                <element key="grapheme_strripos" />
+                <element key="grapheme_strrpos" />
+                <element key="grapheme_strstr" />
+                <element key="grapheme_substr" />
+                <element key="getallheaders" />
+                <element key="iconv" />
+                <element key="iconv_get_encoding" />
+                <element key="iconv_set_encoding" />
+                <element key="iconv_mime_encode" />
+                <element key="iconv_mime_decode_headers" />
+                <element key="iconv_strlen" />
+                <element key="iconv_strpos" />
+                <element key="iconv_strrpos" />
+                <element key="iconv_substr" />
+                <element key="iconv_mime_decode" />
+                <element key="collect" />
+                <element key="data_fill" />
+                <element key="data_get" />
+                <element key="data_set" />
+                <element key="head" />
+                <element key="last" />
+                <element key="value" />
+                <element key="abort" />
+                <element key="abort_if" />
+                <element key="abort_unless" />
+                <element key="action" />
+                <element key="app_path" />
+                <element key="auth" />
+                <element key="base_path" />
+                <element key="bcrypt" />
+                <element key="broadcast" />
+                <element key="cache" />
+                <element key="config_path" />
+                <element key="csrf_field" />
+                <element key="csrf_token" />
+                <element key="database_path" />
+                <element key="decrypt" />
+                <element key="dispatch" />
+                <element key="dispatch_sync" />
+                <element key="dispatch_now" />
+                <element key="encrypt" />
+                <element key="info" />
+                <element key="logger" />
+                <element key="lang_path" />
+                <element key="logs" />
+                <element key="method_field" />
+                <element key="mix" />
+                <element key="now" />
+                <element key="old" />
+                <element key="policy" />
+                <element key="public_path" />
+                <element key="report" />
+                <element key="rescue" />
+                <element key="resolve" />
+                <element key="resource_path" />
+                <element key="secure_asset" />
+                <element key="secure_url" />
+                <element key="storage_path" />
+                <element key="to_route" />
+                <element key="today" />
+                <element key="__" />
+                <element key="validator" />
+                <element key="view" />
+                <element key="append_config" />
+                <element key="blank" />
+                <element key="class_basename" />
+                <element key="class_uses_recursive" />
+                <element key="e" />
+                <element key="filled" />
+                <element key="object_get" />
+                <element key="optional" />
+                <element key="preg_replace_array" />
+                <element key="retry" />
+                <element key="str" />
+                <element key="throw_if" />
+                <element key="throw_unless" />
+                <element key="trait_uses_recursive" />
+                <element key="transform" />
+                <element key="windows_os" />
+                <element key="array_merge_recursive_distinct" />
+                <element key="ray" />
+                <element key="rd" />
+                <element key="debugbar" />
+                <element key="debug" />
+                <element key="start_measure" />
+                <element key="stop_measure" />
+                <element key="add_measure" />
+                <element key="measure" />
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Formatting.MultipleStatementAlignment">
+        <properties>
+            <property name="maxPadding" value="60"/>
+            <property name="error" value="true"/>
+        </properties>
+    </rule>
+
+    <arg name="colors"/>
+
+    <ini name="memory_limit" value="256M"/>
+
+    <file>./src</file>
+    <file>./tests</file>
+
+    <!-- PER PROJECT -->
+    <!-- Set namespaces -->
     <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName">
         <properties>
             <property name="rootNamespaces" type="array">
-                <element key="src" value="MiBo\Taxonomy"/>
-                <element key="tests" value="MiBo\Taxonomy\Tests"/>
+                <element key="src" value="MiBo\Taxonomy" />
+                <element key="tests" value="MiBo\Taxonomy\Tests" />
             </property>
         </properties>
     </rule>

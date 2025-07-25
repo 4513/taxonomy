@@ -60,7 +60,6 @@ interface ProductTaxonomy
      *
      * @param string|\MiBo\Taxonomy\Contracts\ProductTaxonomy $code Code
      *     of the taxonomy.
-     *
      */
     public function is(string|self $code): bool;
 
@@ -69,7 +68,6 @@ interface ProductTaxonomy
      *
      * @param string|\MiBo\Taxonomy\Contracts\ProductTaxonomy $code Code
      *     of the taxonomy.
-     *
      */
     public function belongsTo(string|self $code): bool;
 
@@ -79,7 +77,6 @@ interface ProductTaxonomy
      *
      * @param string|\MiBo\Taxonomy\Contracts\ProductTaxonomy $code Code
      *     of the taxonomy.
-     *
      */
     public function wraps(string|self $code): bool;
 
@@ -87,7 +84,6 @@ interface ProductTaxonomy
      * Validates the given code.
      *
      * @param string $code Code of the taxonomy.
-     *
      */
     public static function isValid(string $code): bool;
 }
